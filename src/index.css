@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-muted dark:bg-darkBg text-gray-900 dark:text-white transition-colors duration-500 ease-in-out;
+  font-family: 'Inter', sans-serif;
+}
