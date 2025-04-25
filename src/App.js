@@ -190,7 +190,7 @@ export default function ResumeMatcher() {
       <div className="max-w-7xl mx-auto space-y-6">
       <header className="bg-white dark:bg-gray-900 shadow-sm rounded-xl px-6 py-3 flex justify-between items-center">
       <div className="flex items-center gap-2">
-  <img src="/logo192.png" alt="Logo" className="h-8 w-8" />
+  <img src="/choosed.png" alt="Logo" className="h-8 w-8" />
   <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">ResumeMatcher.AI</h1>
 </div>
 
