@@ -236,17 +236,18 @@ return (
         transition={{ duration: 0.7 }}
         className="flex flex-col md:flex-row md:justify-between md:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-md p-5"
       >
-        <div className="flex items-center gap-4">
-          <motion.img 
-            src="/logo.png" 
-            alt="Resume Matcher Logo" 
-            className="h-10 w-10 object-contain" 
-            whileHover={{ rotate: 15 }}
-          />
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white tracking-wide">
-            ResumeMatcher.AI
-          </h1>
-        </div>
+        <div className="flex items-center gap-2 flex-wrap">
+  <motion.img 
+    src="/logo.png" 
+    alt="Resume Matcher Logo" 
+    className="h-10 w-10 object-contain" 
+    whileHover={{ rotate: 15 }}
+  />
+  <h1 className="text-xl md:text-3xl font-bold text-gray-800 dark:text-white tracking-wide">
+    ResumeMatcher.AI
+  </h1>
+</div>
+
 
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           <button onClick={toggleTheme} className="text-gray-600 dark:text-gray-300 hover:underline">
