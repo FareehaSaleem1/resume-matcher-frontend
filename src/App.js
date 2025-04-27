@@ -158,140 +158,351 @@ export default function ResumeMatcher() {
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
-  if (!user) {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md mx-auto mt-20 p-8 rounded-xl shadow-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-white">
-        <h2 className="text-2xl font-bold text-center mb-4">
-          {isLogin ? 'Login' : 'Sign Up'} to Resume Matcher
-        </h2>
-        {!isLogin && <input type="text" className="w-full p-2 mb-2 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} />}
-        <input type="email" className="w-full p-2 mb-2 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" className="w-full p-2 mb-4 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button onClick={handleAuth} className="w-full bg-blue-600 text-white py-2 rounded transition transform hover:scale-105 duration-300">
-          {isLogin ? 'Login' : 'Sign Up'}
-        </button>
-        <button onClick={() => setIsLogin(!isLogin)} className="mt-2 text-sm text-blue-600 underline w-full text-center transition transform hover:scale-105 duration-300">
-          {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Log in'}
-        </button>
-      </motion.div>
-    );
-  }
-
+  // 👇 Paste this inside your App.js (replacing the old `if (!user) return (...)` block)
+if (!user) {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col justify-between px-4 py-8 bg-gradient-to-tr from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-6xl mx-auto space-y-10">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }} 
+      animate={{ opacity: 1, scale: 1 }} 
+      transition={{ duration: 0.5 }}
+      className="max-w-sm mx-auto mt-20 p-8 rounded-2xl shadow-2xl bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+    >
+      <motion.h2 
+        initial={{ y: -20, opacity: 0 }} 
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7 }}
+        className="text-3xl font-extrabold text-center mb-6"
+      >
+        {isLogin ? 'Welcome Back!' : 'Create an Account'}
+      </motion.h2>
 
-        <motion.header initial={{ y: -40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} className="flex items-center justify-between bg-white dark:bg-gray-900 rounded-2xl p-4 shadow">
-          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-3">
-            <motion.img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300 }} />
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">ResumeMatcher.AI</h1>
-          </motion.div>
+      {!isLogin && (
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="w-full mb-4 p-3 rounded-xl border bg-white dark:bg-gray-800"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+        />
+      )}
+      <input
+        type="email"
+        placeholder="Email Address"
+        className="w-full mb-4 p-3 rounded-xl border bg-white dark:bg-gray-800"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        className="w-full mb-6 p-3 rounded-xl border bg-white dark:bg-gray-800"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-          <div className="flex items-center gap-4">
-            <button onClick={toggleTheme} className="text-gray-600 dark:text-gray-300 hover:underline">🌓 Theme</button>
-            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm shadow transition-all">Logout</button>
-          </div>
-        </motion.header>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={handleAuth}
+        className="w-full bg-gradient-to-tr from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-semibold py-3 rounded-xl transition-all shadow-md"
+      >
+        {isLogin ? 'Login' : 'Sign Up'}
+      </motion.button>
+
+      <button
+        onClick={() => setIsLogin(!isLogin)}
+        className="mt-4 w-full text-sm text-blue-600 dark:text-blue-400 hover:underline transition-all"
+      >
+        {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
+      </button>
+    </motion.div>
+  );
+}
 
 
+  // 👇 This replaces the main return (after `if (!user)` block)
+return (
+  <motion.div 
+    initial={{ opacity: 0 }} 
+    animate={{ opacity: 1 }} 
+    className="min-h-screen flex flex-col justify-between bg-gradient-to-tr from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"
+  >
+    <div className="max-w-7xl mx-auto w-full px-4 py-8 space-y-8">
 
-        {/* Job Posting and Resume Upload Section */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-xl space-y-4">
-            <h2 className="text-xl font-bold">📝 Post a Job</h2>
-            <input className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" placeholder="Job Title" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
-            <textarea rows={4} className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" placeholder="Job Description" value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
-            <button onClick={createJob} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl shadow transition">Create</button>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-xl space-y-4">
-            <h2 className="text-xl font-bold">📁 Upload Resumes</h2>
-            <select className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" onChange={(e) => { const job = jobs.find(j => j.id === e.target.value); setSelectedJob(job?.description); setSelectedJobId(job?.id); fetchTaggedResumes(job?.id); }}>
-              <option value="">-- Select Job --</option>
-              {jobs.map(job => <option key={job.id} value={job.id}>{job.title}</option>)}
-            </select>
-            {selectedJob && (
-              <>
-                <input type="file" className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" multiple accept=".pdf" onChange={handleFileUpload} />
-                <button onClick={handleMatch} disabled={loading} className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl shadow transition">{loading ? 'Matching...' : 'Run AI Match'}</button>
-                <button onClick={clearResumes} className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 mt-2 rounded-xl shadow transition">🧹 Clear Tagged Resumes</button>
-              </>
-            )}
-          </motion.div>
+      {/* 🧢 Header */}
+      <motion.header 
+        initial={{ y: -20, opacity: 0 }} 
+        animate={{ y: 0, opacity: 1 }} 
+        transition={{ duration: 0.7 }}
+        className="flex flex-col md:flex-row md:justify-between md:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-md p-5"
+      >
+        <div className="flex items-center gap-4">
+          <motion.img 
+            src="/logo.png" 
+            alt="Resume Matcher Logo" 
+            className="h-10 w-10 object-contain" 
+            whileHover={{ rotate: 15 }}
+          />
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white tracking-wide">
+            ResumeMatcher.AI
+          </h1>
         </div>
 
-        {savedResumes.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold">📂 Tagged Resumes</h2>
-              <button onClick={exportToCSV} className="bg-blue-600 text-white px-3 py-1 rounded transition transform hover:scale-105 duration-300
-">Export CSV</button>
+        <div className="flex items-center gap-4 mt-4 md:mt-0">
+          <button onClick={toggleTheme} className="text-gray-600 dark:text-gray-300 hover:underline">
+            🌓 Toggle Theme
+          </button>
+          <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shadow">
+            Logout
+          </button>
+        </div>
+      </motion.header>
+
+
+
+   {/* 📂 Main Body: Jobs + Upload */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+
+{/* 📝 Left Panel: Post a Job */}
+<motion.div 
+  initial={{ opacity: 0, y: 20 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+  className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow space-y-6"
+>
+  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">📝 Post a Job</h2>
+  <input 
+    type="text" 
+    placeholder="Job Title" 
+    value={jobTitle} 
+    onChange={(e) => setJobTitle(e.target.value)} 
+    className="w-full p-3 rounded-lg border bg-white dark:bg-gray-800 dark:text-white focus:ring focus:ring-blue-300"
+  />
+  <textarea 
+    rows="4"
+    placeholder="Job Description" 
+    value={jobDesc} 
+    onChange={(e) => setJobDesc(e.target.value)} 
+    className="w-full p-3 rounded-lg border bg-white dark:bg-gray-800 dark:text-white focus:ring focus:ring-blue-300"
+  ></textarea>
+  <button 
+    onClick={createJob} 
+    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-all font-semibold"
+  >
+    Create Job
+  </button>
+</motion.div>
+
+{/* 📁 Right Panel: Upload Resumes */}
+<motion.div 
+  initial={{ opacity: 0, y: 20 }} 
+  whileInView={{ opacity: 1, y: 0 }} 
+  viewport={{ once: true }}
+  transition={{ duration: 0.8 }}
+  className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow space-y-6"
+>
+  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">📁 Upload Resumes</h2>
+  <select 
+    onChange={(e) => {
+      const job = jobs.find(j => j.id === e.target.value);
+      setSelectedJob(job?.description);
+      setSelectedJobId(job?.id);
+      fetchTaggedResumes(job?.id);
+    }}
+    className="w-full p-3 rounded-lg border bg-white dark:bg-gray-800 dark:text-white focus:ring focus:ring-blue-300"
+  >
+    <option value="">-- Select Job --</option>
+    {jobs.map(job => <option key={job.id} value={job.id}>{job.title}</option>)}
+  </select>
+
+  {selectedJob && (
+    <>
+      <input 
+        type="file" 
+        multiple 
+        accept=".pdf" 
+        onChange={handleFileUpload} 
+        className="w-full p-3 rounded-lg border bg-white dark:bg-gray-800 dark:text-white focus:ring focus:ring-blue-300"
+      />
+      <button 
+        onClick={handleMatch} 
+        disabled={loading}
+        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition-all font-semibold"
+      >
+        {loading ? 'Matching...' : 'Run AI Match'}
+      </button>
+      <button 
+        onClick={clearResumes}
+        className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg mt-2 transition-all font-semibold"
+      >
+        🧹 Clear Resumes
+      </button>
+    </>
+  )}
+</motion.div>
+
+</div>
+
+        {/* 🗂️ List of Tagged Resumes */}
+{savedResumes.length > 0 && (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow space-y-6"
+  >
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white">📂 Tagged Resumes</h2>
+      <button
+        onClick={exportToCSV}
+        className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition font-semibold"
+      >
+        Export CSV
+      </button>
+    </div>
+
+    <div className="space-y-6">
+      {savedResumes.map((res) => (
+        <motion.div
+          key={res.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="border border-gray-200 dark:border-gray-700 p-5 rounded-2xl bg-white dark:bg-gray-900 shadow-md space-y-3"
+        >
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">{res.filename}</h3>
+            <span className="text-green-600 dark:text-green-400 font-bold">{res.score}%</span>
+          </div>
+
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            📌 <strong>Summary:</strong> {res.summary}
+          </div>
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            💡 <strong>Why Matched:</strong> {res.why_matched}
+          </div>
+
+          <div className="flex flex-wrap gap-2 mt-2 text-xs">
+            {res.skills?.technical?.map(skill => (
+              <span key={skill} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">{skill}</span>
+            ))}
+            {res.skills?.soft?.map(skill => (
+              <span key={skill} className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-medium">{skill}</span>
+            ))}
+          </div>
+
+          <div className="flex gap-3 mt-4">
+            <button 
+              onClick={() => updateTag(res.id, 'Shortlisted')} 
+              className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg text-sm font-bold transition"
+            >
+              Shortlist
+            </button>
+            <button 
+              onClick={() => updateTag(res.id, 'Maybe')} 
+              className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg text-sm font-bold transition"
+            >
+              Maybe
+            </button>
+            <button 
+              onClick={() => updateTag(res.id, 'Rejected')} 
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg text-sm font-bold transition"
+            >
+              Reject
+            </button>
+          </div>
+
+          {/* If Shortlisted, show email button */}
+          {res.tag === 'Shortlisted' && (
+            <div className="mt-4">
+              <a 
+                href={`mailto:?subject=You're Shortlisted!&body=Hi ${res.filename},%0D%0A%0D%0ACongratulations! You've been shortlisted for the role. We'll follow up shortly with next steps.%0D%0A%0D%0A— ResumeMatcher.AI`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold transition"
+              >
+                📧 Send Interview Email
+              </a>
             </div>
-            <ul className="space-y-4">
-              {savedResumes.map((res) => (
-                <motion.li
-                  key={res.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="p-4 border rounded-xl shadow-sm bg-white dark:bg-gray-900 dark:border-gray-700"
-                >
-                  <div className="font-semibold">{res.filename}</div>
-                  <div className="text-sm text-gray-700 dark:text-gray-300">Score: <strong className="text-green-600 dark:text-green-400">{res.score}%</strong></div>
-                  <div className="text-sm">📌 {res.summary}</div>
-                  <div className="text-sm">💡 {res.why_matched}</div>
-                  <div className="text-sm">🏷️ Tag: {res.tag}</div>
-                  <div className="flex flex-wrap gap-2 mt-2 text-xs">
-                    {res.skills?.technical?.map(skill => <span key={skill} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">{skill}</span>)}
-                    {res.skills?.soft?.map(skill => <span key={skill} className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">{skill}</span>)}
-                  </div>
-                  <div className="mt-2 space-x-2">
-                    <button onClick={() => updateTag(res.id, 'Shortlisted')} className="bg-green-500 text-white px-2 py-1 rounded">Shortlist</button>
-                    <button onClick={() => updateTag(res.id, 'Maybe')} className="bg-yellow-400 text-white px-2 py-1 rounded transition transform hover:scale-105 duration-300
-">Maybe</button>
-                    <button onClick={() => updateTag(res.id, 'Rejected')} className="bg-red-500 text-white px-2 py-1 rounded transition transform hover:scale-105 duration-300
-">Reject</button>
-                  </div>
-                  {res.tag === 'Shortlisted' && (
-  <div className="mt-3">
-    <a
-      href={`mailto:?subject=You're Shortlisted!&body=Hi ${res.filename},%0D%0A%0D%0ACongratulations! You've been shortlisted for the role. We'll follow up shortly with next steps.%0D%0A%0D%0A— ResumeMatcher.AI`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
-    >
-      📧 Send Interview Email
-    </a>
-  </div>
+          )}
+        </motion.div>
+      ))}
+    </div>
+
+  </motion.div>
 )}
 
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        )}
 
-        {tagChart.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow space-y-4">
-            <h2 className="text-xl font-semibold">📊 Resume Tag Summary</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={tagChart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis /><Tooltip /><Bar dataKey="count" fill="#3b82f6" /></BarChart>
-            </ResponsiveContainer>
-          </div>
-        )}
+        {/* 📊 Resume Tag Summary Chart */}
+{tagChart.length > 0 && (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow space-y-4"
+  >
+    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">📊 Resume Tag Summary</h2>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={tagChart}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="count" fill="#3b82f6" barSize={50} radius={[10, 10, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </motion.div>
+)}
 
-        {scoreChart.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow space-y-4">
-            <h2 className="text-xl font-semibold">📈 Score Distribution</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={scoreChart}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="filename" hide /><YAxis /><Tooltip /><Line type="monotone" dataKey="score" stroke="#10b981" strokeWidth={2} /></LineChart>
-            </ResponsiveContainer>
-          </div>
-        )}
+
+        {/* 📈 Score Distribution Chart */}
+{scoreChart.length > 0 && (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow space-y-4"
+  >
+    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">📈 Score Distribution</h2>
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={scoreChart}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="filename" hide />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="score" stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+      </LineChart>
+    </ResponsiveContainer>
+  </motion.div>
+)}
+
       </div>
-      <motion.footer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center py-6 text-xs text-gray-500 dark:text-gray-400">
-        © {new Date().getFullYear()} ResumeMatcher.AI — Crafted with 💻 by <a href="https://github.com/FareehaSaleem1" target="_blank" className="underline hover:text-blue-600 dark:hover:text-blue-300">Fareeha Saleem</a>
-      </motion.footer>
+      {/* 📢 Footer */}
+   {/* 🌟 Footer Section */}
+<motion.footer 
+  initial={{ opacity: 0 }} 
+  animate={{ opacity: 1 }} 
+  transition={{ duration: 1 }}
+  className="text-center py-6 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-300 dark:border-gray-700 mt-10"
+>
+  <p>
+    © {new Date().getFullYear()} <strong className="text-blue-600 dark:text-blue-400">ResumeMatcher.AI</strong> —
+    Crafted with 💻 by{" "}
+    <a 
+      href="https://github.com/FareehaSaleem1" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="underline hover:text-blue-600 dark:hover:text-blue-300 transition"
+    >
+      Fareeha Saleem
+    </a>
+  </p>
+</motion.footer>
+
 
     </motion.div>
   );
