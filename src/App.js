@@ -1,17 +1,9 @@
-// ✅ COMPLETE App.js File With All Fixes Applied
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  onAuthStateChanged, signOut, updateProfile
-} from 'firebase/auth';
-import {
-  getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc, deleteDoc
-} from 'firebase/firestore';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line
-} from 'recharts';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAPxnprfN4obgBIHn_xd31mRfECY6JHVvk",
@@ -175,10 +167,10 @@ export default function ResumeMatcher() {
         {!isLogin && <input type="text" className="w-full p-2 mb-2 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} />}
         <input type="email" className="w-full p-2 mb-2 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" className="w-full p-2 mb-4 rounded border bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button onClick={handleAuth} className="w-full bg-blue-600 text-white py-2 rounded transition transform hover:scale-105 duration-300
-">{isLogin ? 'Login' : 'Sign Up'}</button>
-        <button onClick={() => setIsLogin(!isLogin)} className="mt-2 text-sm text-blue-600 underline w-full text-center transition transform hover:scale-105 duration-300
-">
+        <button onClick={handleAuth} className="w-full bg-blue-600 text-white py-2 rounded transition transform hover:scale-105 duration-300">
+          {isLogin ? 'Login' : 'Sign Up'}
+        </button>
+        <button onClick={() => setIsLogin(!isLogin)} className="mt-2 text-sm text-blue-600 underline w-full text-center transition transform hover:scale-105 duration-300">
           {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Log in'}
         </button>
       </motion.div>
@@ -186,60 +178,46 @@ export default function ResumeMatcher() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} className="min-h-screen px-6 py-10 bg-gradient-to-tr from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
-      <div className="max-w-7xl mx-auto space-y-6">
-      <header className="bg-white dark:bg-gray-900 shadow-sm rounded-xl px-6 py-3 flex justify-between items-center">
-      <div className="flex items-center gap-2">
-  <img src="/choosed.png" alt="Logo" className="h-8 w-8" />
-  <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">ResumeMatcher.AI</h1>
-</div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col justify-between px-4 py-8 bg-gradient-to-tr from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-6xl mx-auto space-y-10">
 
-  <div className="flex items-center gap-3">
-    <button
-      onClick={toggleTheme}
-      className="text-sm text-gray-600 dark:text-gray-300 hover:underline"
-    >
-      🌓 Theme
-    </button>
-    <button
-      onClick={handleLogout}
-      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm shadow-sm transition"
-    >
-      Logout
-    </button>
-  </div>
-</header>
+        <motion.header initial={{ y: -40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} className="flex items-center justify-between bg-white dark:bg-gray-900 rounded-2xl p-4 shadow">
+          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-3">
+            <motion.img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300 }} />
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">ResumeMatcher.AI</h1>
+          </motion.div>
 
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow space-y-4">
-            <h2 className="text-xl font-semibold">📝 Post a Job</h2>
-            <input className="w-full border p-2 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Job Title" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
-            <textarea rows={4} className="w-full border p-2 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="Job Description" value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
-            <button onClick={createJob} className="w-full bg-blue-600 text-white py-2 rounded transition transform hover:scale-105 duration-300
-">Create</button>
+          <div className="flex items-center gap-4">
+            <button onClick={toggleTheme} className="text-gray-600 dark:text-gray-300 hover:underline">🌓 Theme</button>
+            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm shadow transition-all">Logout</button>
           </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow space-y-4">
-            <h2 className="text-xl font-semibold">📁 Upload Resumes</h2>
-            <select className="w-full border p-2 rounded bg-white dark:bg-gray-800 text-gray-800 dark:text-white" onChange={(e) => {
-              const job = jobs.find(j => j.id === e.target.value);
-              setSelectedJob(job?.description);
-              setSelectedJobId(job?.id);
-              fetchTaggedResumes(job?.id);
-            }}>
+        </motion.header>
+
+
+
+        {/* Job Posting and Resume Upload Section */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-xl space-y-4">
+            <h2 className="text-xl font-bold">📝 Post a Job</h2>
+            <input className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" placeholder="Job Title" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
+            <textarea rows={4} className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" placeholder="Job Description" value={jobDesc} onChange={(e) => setJobDesc(e.target.value)} />
+            <button onClick={createJob} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl shadow transition">Create</button>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-xl space-y-4">
+            <h2 className="text-xl font-bold">📁 Upload Resumes</h2>
+            <select className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" onChange={(e) => { const job = jobs.find(j => j.id === e.target.value); setSelectedJob(job?.description); setSelectedJobId(job?.id); fetchTaggedResumes(job?.id); }}>
               <option value="">-- Select Job --</option>
               {jobs.map(job => <option key={job.id} value={job.id}>{job.title}</option>)}
             </select>
             {selectedJob && (
               <>
-                <input type="file" className="w-full border p-2 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white" multiple accept=".pdf" onChange={handleFileUpload} />
-                <button onClick={handleMatch} disabled={loading} className="w-full bg-green-600 text-white py-2 rounded transition transform hover:scale-105 duration-300
-">{loading ? 'Matching...' : 'Run AI Match'}</button>
-                <button onClick={clearResumes} className="mt-2 w-full bg-gray-500 text-white py-2 rounded transition transform hover:scale-105 duration-300
-">🧹 Clear Tagged Resumes</button>
+                <input type="file" className="w-full border p-3 rounded-xl bg-white dark:bg-gray-800" multiple accept=".pdf" onChange={handleFileUpload} />
+                <button onClick={handleMatch} disabled={loading} className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl shadow transition">{loading ? 'Matching...' : 'Run AI Match'}</button>
+                <button onClick={clearResumes} className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 mt-2 rounded-xl shadow transition">🧹 Clear Tagged Resumes</button>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
 
         {savedResumes.length > 0 && (
@@ -311,14 +289,9 @@ export default function ResumeMatcher() {
           </div>
         )}
       </div>
-      <footer className="text-center text-xs text-gray-500 dark:text-gray-400 mt-12 py-6 border-t border-gray-200 dark:border-gray-700">
-  <p>
-    © {new Date().getFullYear()} <strong className="text-blue-600 dark:text-blue-400">ResumeMatcher.AI</strong> — Crafted with 💻 by{" "}
-    <a href="https://github.com/FareehaSaleem1" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600 dark:hover:text-blue-300">
-      Fareeha Saleem
-    </a>
-  </p>
-</footer>
+      <motion.footer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center py-6 text-xs text-gray-500 dark:text-gray-400">
+        © {new Date().getFullYear()} ResumeMatcher.AI — Crafted with 💻 by <a href="https://github.com/FareehaSaleem1" target="_blank" className="underline hover:text-blue-600 dark:hover:text-blue-300">Fareeha Saleem</a>
+      </motion.footer>
 
     </motion.div>
   );
